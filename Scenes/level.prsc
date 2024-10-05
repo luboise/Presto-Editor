@@ -1,4 +1,6 @@
 {
 	"name": "level",
-	"objects": ["hello"]
+	"objects": [
+		 "Cube"
+	]
 }

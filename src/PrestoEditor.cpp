@@ -1,18 +1,46 @@
-#include <Presto/Presto.h>
+#include "Presto/Presto.h"
+#include "UI/Frames/MainFrame.h"
 
-#include <Presto/Objects/EntityManager.h>
-#include <Presto/Rendering/Meshes/Cube.h>
-#include <Presto/Rendering/RenderingManager.h>
-#include <Presto/Rendering/Vertex.h>
+class PrestoEditor : public wxApp, public Presto::Application {
+   public:
+    bool OnInit() override {
+        _mainFrame = new MainFrame();
+        _mainFrame->Show();
 
-#include <glm/gtc/constants.hpp>
-#include "glm/fwd.hpp"
+        return true;
+    };
 
-#include <wx/wx.h>
+   private:
+    MainFrame* _mainFrame = nullptr;
+};
 
-#include "UI/MainFrame.h"
+int main(int argc, char** argv) {
+    Presto::Init();
+    return wxEntry(argc, argv);
+}
 
-#define HEART_POINTS 300
+PrestoEditor& wxGetApp() {
+    return *static_cast<PrestoEditor*>(wxApp ::GetInstance());
+}
+
+wxAppConsole* wxCreateApp() {
+    wxAppConsole ::CheckBuildOptions(
+        "3"
+        "."
+        "2"
+        " ("
+        "wchar_t"
+        ",compiler with C++ ABI compatible with gcc 4"
+        ",wx containers"
+        ",compatible with 3.0"
+        ")",
+        "your program");
+    return new PrestoEditor;
+}
+
+wxAppInitializer wxTheAppInitializer((wxAppInitializerFunction)wxCreateApp);
+
+/*
 
 float getRandomFloat() {
     // Generate a random float between 0.0 and 1.0
@@ -37,21 +65,12 @@ class _PrestoEditor final : public Pr::Application {
 
     ~_PrestoEditor() {}
 };
+*/
+
+////////////////////////////////////////////////////////////////
 
 // Presto::Application* Presto::CreateApplication() { return new PrestoEditor();
 // }
-
-class PrestoEditor : public wxApp {
-   public:
-    bool OnInit() override {
-        MainFrame *frame = new MainFrame();
-        frame->Show();
-        return true;
-    };
-};
-
-// This defines the equivalent of main() for the current platform.
-wxIMPLEMENT_APP(PrestoEditor);
 
 /*
 // this->_heart = Pr::EntityManager::newEntity();

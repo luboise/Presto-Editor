@@ -1,0 +1,35 @@
+session_name: Presto
+
+windows:
+    - window_name: PrestoEditor
+      focus: true
+      layout: main-vertical
+      options:
+          main-pane-width: 70%
+      panes:
+          - shell_command:
+                - nvim .
+            focus: true
+          - shell_command:
+                - mkdir -p build
+
+    - window_name: Presto
+      layout: main-vertical
+      panes:
+        - shell_command:
+          - cd ../Presto/
+          - nvim .
+        - shell_command:
+          - echo "BUILD PANEL"
+
+    - window_name: Editor Git
+      panes:
+          - shell_command:
+                - lazygit
+
+    - window_name: Presto Git
+      layout: main-vertical
+      panes: 
+        - shell_command:
+          - cd ../Presto/
+          - lazygit
